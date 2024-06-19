@@ -4,11 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 
-                """
-                docker build -t jenkins-maven
-                mvn clean install
-                """
+                sh "docker build -t jenkins-maven"
+                sh "mvn clean install"
             }
         }
         stage('Test') {

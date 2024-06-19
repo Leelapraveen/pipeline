@@ -4,7 +4,13 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh "mvn clean install"
+                sh 
+                """
+                FROM "jenkins/jenkins:lts
+                USER root
+                RUN /bin/bash -c "apt-get install maven"
+                mvn clean install
+                """
             }
         }
         stage('Test') {

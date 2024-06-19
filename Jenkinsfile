@@ -5,9 +5,11 @@ pipeline {
     }
     stages {
         stage('Initialize'){
+            steps {
         def dockerHome = tool 'myDocker'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
     }
+        }
         stage('Build') {
             steps {
                 sh "mvn clean install"

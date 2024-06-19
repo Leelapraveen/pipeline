@@ -1,15 +1,15 @@
 pipeline {
-    agent any 
-    tools {
-           maven 'maven-3.9'
-    }
+    agent { label "mine" }
     stages {
-        stage('Initialize'){
+        stage('checkout') {
             steps {
-        sh "def dockerHome = tool 'myDocker'"
-        sh "env.PATH = "${dockerHome}/bin:${env.PATH}""
+               script {
+                   deleteDir()
+               }
+                checkout scm
             }
-    }
+        }
+        
         stage('Build') {
             steps {
                 sh "mvn clean install"
@@ -17,7 +17,7 @@ pipeline {
         }
         stage('image creation') {
             steps {
-            sh  " docker build -t my-image"
+            sh  "docker build -t my-image"
             }
         }
         stage('Test') {

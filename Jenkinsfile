@@ -17,7 +17,7 @@ pipeline {
         }
         stage('image creation') {
             steps {
-            sh  "docker build -t my-image"
+            sh  "docker build . -t latest"
             }
         }
         stage('Test') {

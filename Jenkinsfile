@@ -6,9 +6,7 @@ pipeline {
             steps {
                 sh 
                 """
-                FROM "jenkins/jenkins:lts
-                USER root
-                RUN /bin/bash -c "apt-get install maven"
+                docker build -t jenkins-maven
                 mvn clean install
                 """
             }

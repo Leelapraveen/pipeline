@@ -10,11 +10,14 @@ pipeline {
             }
         }
         
-        stage('Build') {
+        stage("build & SonarQube analysis") {
+            agent any
             steps {
-                sh "mvn clean install"
+              withSonarQubeEnv('sonar') {
+                sh 'mvn clean install sonar:sonar'
+              }
             }
-        }
+          }
         stage('image creation') {
             steps {
             sh  "docker build . -t latest"
